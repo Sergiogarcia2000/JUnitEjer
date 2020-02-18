@@ -13,31 +13,34 @@ public class PriceCalculator {
     }
 
     public double calculatePrice(String productName, Integer numberOfProducts) {
-        Products product = Products.valueOf(productName);
+    	try {
+    		Products product = Products.valueOf(productName);
 
-        double tax = calculateTax(product);
-        double co2Tax = 0;
-        double trushTax = 0;
-        double price = 0;
+            double tax = calculateTax(product);
+            double co2Tax = 0;
+            double trushTax = 0;
+            double price = 0; 
 
-        if(isATransport(product)) {
-            if(isAnAirTransport(product)) {
-                co2Tax = 20;
-            } else {
-                co2Tax = 10;
+            if(isATransport(product)) {
+                if(isAnAirTransport(product)) {
+                    co2Tax = 20; 
+                } else {
+                    co2Tax = 10;
+                }
             }
-        }
 
-        if(isAHome(product)) {
-            trushTax = 3;
-        }
+            if(isAHome(product)) {
+                trushTax = 3;
+            }
 
-        if (tax >= 0) {
-            price = (((1 + tax) / 100) * product.getUnitPrice()) + //precio con la tasa
-                    (((1 + co2Tax) / 100) * product.getUnitPrice()) + // se le suma precio con la tasa de contaminación co2
-                    (((1 + trushTax) / 100) * product.getUnitPrice()); // se le suma precio con la tasa de basura
-        }
-        return price*numberOfProducts;
+            if (tax >= 0) {
+                price = (((tax + co2Tax + trushTax) / 100) + 1) * product.getUnitPrice();
+            }
+            return price*numberOfProducts;
+    	} catch(IllegalArgumentException e) {
+    		return 0;
+    	}
+        
     }
 
     private boolean isAHome(Products product) {
