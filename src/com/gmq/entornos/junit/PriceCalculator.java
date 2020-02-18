@@ -8,7 +8,7 @@ public class PriceCalculator {
             Integer result = 0;
             for (Integer productPrice : productPrices) {
                 result += productPrice;
-            }
+            } 
             return result;
     }
 

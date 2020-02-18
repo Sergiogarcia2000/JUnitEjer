@@ -11,10 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PriceCalculatorTest {
 
-    private PriceCalculator priceCalculatorTest = new PriceCalculator();
+    private PriceCalculator priceCalculatorTest;
 
     @BeforeEach
     void setUp() {
+    	 priceCalculatorTest = new PriceCalculator();
     }
  
     private static Stream<Arguments> sumArgs(){
